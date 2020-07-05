@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarRegister"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:theme="@style/RegisterToolbarTheme"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/toolbarRegister"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="Preencha os campos abaixo com seus dados"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/nameInputLabel"
+            android:textColor="@drawable/label_state_secondary"
+            android:text="NOME COMPLETO"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:inputType="text"
+            android:paddingHorizontal="10dp"
+            android:imeOptions="actionNext"
+            android:id="@+id/nameInput"
+            android:background="@drawable/edit_text_state_secondary"
+            android:layout_marginTop="8dp"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"/>
+
+        <TextView
+            android:id="@+id/birthdayLabel"
+            android:textColor="@drawable/label_state_secondary"
+            android:text="DATA DE NASCIMENTO"
+            android:textSize="13sp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:imeOptions="actionNext"
+            android:inputType="date"
+            android:paddingHorizontal="10dp"
+            android:id="@+id/birthdayInput"
+            android:background="@drawable/edit_text_state_secondary"
+            android:focusable="true"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"/>
+
+        <TextView
+            android:id="@+id/emailLabel"
+            android:textColor="@drawable/label_state_secondary"
+            android:text="E-MAIL"
+            android:textSize="13sp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="10dp"
+            android:id="@+id/emailInput"
+            android:background="@drawable/edit_text_state_secondary"
+            android:focusable="true"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"/>
+
+        <TextView
+            android:id="@+id/pwdLabel"
+            android:textColor="@drawable/label_state_secondary"
+            android:text="SENHA"
+            android:textSize="13sp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:paddingHorizontal="10dp"
+            android:id="@+id/passwordInput"
+            android:background="@drawable/edit_text_state_secondary"
+            android:focusable="true"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"/>
+
+        <TextView
+            android:id="@+id/confirmPwdLabel"
+            android:textColor="@drawable/label_state_secondary"
+            android:text="CONFIRME SUA SENHA"
+            android:textSize="13sp"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:paddingHorizontal="10dp"
+            android:id="@+id/confirmPasswordInput"
+            android:background="@drawable/edit_text_state_secondary"
+            android:focusable="true"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Criar Conta"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:background="@drawable/button_shape_secondary"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

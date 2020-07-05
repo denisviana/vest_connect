@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "944944828798",
+    "firebase_url": "https://vestconnect-18c45.firebaseio.com",
+    "project_id": "vestconnect-18c45",
+    "storage_bucket": "vestconnect-18c45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944944828798:android:7f9853856da44be14da32f",
+        "android_client_info": {
+          "package_name": "thedantas.vestconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944944828798-68l5j4gpir14jhjm4f05stun2s821ka9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB218RSEQBF2jDL3QQjCw2AuQ-ijmcDAks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944944828798-68l5j4gpir14jhjm4f05stun2s821ka9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "944944828798-h5hsjj5uddikja7u5lp4qaf31l02pt9q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "thedantas.com.VestConnect-app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

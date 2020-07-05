@@ -1,0 +1,55 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="thedantas.vestconnect">
+
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+
+
+        <activity
+            android:launchMode="singleTop"
+            android:name=".presentation.features.home.HomeActivity">
+
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".presentation.features.register.RegisterActivity"
+            android:parentActivityName=".presentation.features.login.LoginActivity">
+        </activity>
+
+        <activity android:name=".presentation.features.pre_login.PreLoginActivity" >
+        </activity>
+
+        <activity android:name=".presentation.features.login.LoginActivity"
+            android:parentActivityName=".presentation.features.pre_login.PreLoginActivity">
+        </activity>
+
+        <activity android:name=".presentation.features.splash_screen.SplashActivity"
+            android:theme="@style/Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+    </application>
+
+</manifest>
