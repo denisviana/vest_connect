@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">VestConnect</string>
+
+    <!-- errors -->
+    <string name="auth_error_generic_title">Ocorreu um erro</string>
+    <string name="auth_error_generic">Erro inesperado, tente novamente!</string>
+    <string name="auth_error_email_in_use">E-mail já cadastrado</string>
+    <string name="auth_error_wrong_credential">E-mail ou senha incorretos</string>
+    <string name="auth_error_user_disabled">Usuário desabilitado</string>
+    <string name="auth_error_not_found">Usuário não encontrado</string>
+    <string name="auth_error_token_expired">Token expirado</string>
+    <string name="auth_error_invalid_token">Token inválido</string>
+    <string name="auth_error_send_email">Falha ao enviar e-mail</string>
+    <string name="auth_error_wrong_email">E-mail inválido</string>
+    <string name="auth_error_recent_login_needed_exception_title">Login necessário</string>
+    <string name="auth_error_recent_login_needed_exception">Essa operação requer que um login tenha sido feito recentemente, deseja fazer o login novamente?</string>
+    <string name="error_password_length">Senha deve ter no mínimo 6 digitos.</string>
+    <string name="error_connection">Falha de comunicação com o servidor, verifique sua conexão com a internet!</string>
+    <string name="error_no_connection">falha de conexão</string>
+    <string name="error_no_connection_description">Verifique se você possui uma conexão com a internet e tente novamente.</string>
+    <string name="label_try_again">tentar novamente</string>
+    <string name="error_server">Ocorreu algum erro no servidor, tente novamente e se persistir entre em contato.</string>
+
+
+    <!-- register -->
+    <string name="register_name">Nome</string>
+    <string name="register_email">E-mail</string>
+    <string name="register_create">Criar</string>
+    <string name="register_birth_date">Data de Nascimento</string>
+    <string name="register_password">Senha</string>
+    <string name="register_mandatory_field">Campo Obrigatório</string>
+    <string name="register_invalid_date">Data inválida</string>
+    <string name="register_user_create_success_title">Conta criada com sucesso</string>
+
 </resources>

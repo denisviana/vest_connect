@@ -20,6 +20,10 @@ class HomeActivity : AppCompatActivity() {
 
     private val mViewModel : HomeViewModel by inject()
 
+    companion object{
+        fun newIntent(context : Context) : Intent = Intent(context, HomeActivity::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)

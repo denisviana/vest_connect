@@ -6,5 +6,10 @@ package thedantas.vestconnect.di
 
 val appModules = listOf(
     apiModule,
-    viewModelModule
+    viewModelModule,
+    interactorModule,
+    repositoryModule,
+    dataSourceModule,
+    localModule,
+    remoteModule
 )
