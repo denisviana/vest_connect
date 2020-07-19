@@ -1,4 +1,5 @@
 package thedantas.vestconnect.data.data_source
+import android.content.SharedPreferences
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -17,14 +18,20 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import thedantas.vestconnect.domain.entity.User
 
-class FirebaseDatabaseDataSource constructor(private val database: FirebaseDatabase) {
+class FirebaseDatabaseDataSource constructor(
+    private val database: FirebaseDatabase
+) {
 
     companion object {
         private const val USERS_COLLECTION = "users"
     }
 
-    suspend fun createUser(uid: String, user: User) {
-        database.reference.child(USERS_COLLECTION).child(uid).setValue(user).await()
+    suspend fun createUser(uid: String, user: UserDocument) {
+        database.reference
+            .child(USERS_COLLECTION)
+            .child(uid)
+            .setValue(user)
+            .await()
     }
 
     @ExperimentalCoroutinesApi

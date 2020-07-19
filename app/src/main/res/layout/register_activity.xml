@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.santalu.maskedittext.MaskEditText
                 android:imeOptions="actionNext"
                 android:inputType="date"
                 android:textColor="#fff"
@@ -98,6 +98,7 @@
                 android:background="@drawable/edit_text_state_secondary"
                 android:focusable="true"
                 android:layout_width="match_parent"
+                app:met_mask="##/##/####"
                 android:layout_height="match_parent"/>
 
 

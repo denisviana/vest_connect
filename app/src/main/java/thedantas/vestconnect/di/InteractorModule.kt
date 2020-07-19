@@ -5,7 +5,7 @@ import thedantas.vestconnect.domain.interactor.*
 
 val interactorModule = module {
 
-    single { RegisterUserInteractor(get(), get()) }
+    single { RegisterUserInteractor(get(), get(), get()) }
     single{ UserInfoInteractor(get()) }
     single { UserAuthInteractor(get()) }
     single { GetUserInteractor(get())}

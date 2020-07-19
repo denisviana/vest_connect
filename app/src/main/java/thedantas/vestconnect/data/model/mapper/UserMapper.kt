@@ -1,20 +1,27 @@
 package thedantas.vestconnect.data.model.mapper
-import thedantas.vestconnect.data.model.domain.UserRegister
+import org.threeten.bp.ZoneOffset
 import thedantas.vestconnect.data.model.remote.UserDocument
+import thedantas.vestconnect.domain.entity.User
+import thedantas.vestconnect.presentation.util.dateToLocalDate
+import java.util.*
 
-fun UserRegister.toDocument(): UserDocument {
+fun User.toDocument(latitude : Float, longitude : Float): UserDocument {
     return UserDocument(
-        name = name,
+        holder = holder,
         email = email,
-        birthDate = birthDate
+        birthDate = birthday.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli(),
+        latitude = latitude,
+        longitude = longitude
     )
 }
 
-fun UserDocument.toDomain(): UserRegister {
-    return UserRegister(
-        name = name,
+fun UserDocument.toDomain(): User {
+    return User(
+        holder = holder,
         email = email,
-        birthDate = birthDate,
+        birthday = dateToLocalDate(Date(birthDate)).toLocalDate(),
+        latitude = latitude,
+        longitude = longitude,
         password = ""
     )
 }

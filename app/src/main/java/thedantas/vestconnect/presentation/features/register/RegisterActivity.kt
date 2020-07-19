@@ -11,11 +11,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 import thedantas.vestconnect.R
 import thedantas.vestconnect.base.BaseViewModelActivity
-import thedantas.vestconnect.data.model.domain.UserRegister
 import thedantas.vestconnect.domain.entity.User
 import thedantas.vestconnect.presentation.features.home.HomeActivity
 import thedantas.vestconnect.presentation.util.isValidDate
-import java.util.*
+import thedantas.vestconnect.presentation.util.parseLocalDate
 
 class RegisterActivity : BaseViewModelActivity(){
 
@@ -23,7 +22,7 @@ class RegisterActivity : BaseViewModelActivity(){
         fun newIntent(context : Context) : Intent = Intent(context, RegisterActivity::class.java)
     }
 
-    val mViewModel : RegisterViewModel by viewModel()
+    private val mViewModel : RegisterViewModel by viewModel()
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,11 +41,8 @@ class RegisterActivity : BaseViewModelActivity(){
                     User(
                         holder = nameInput.text.toString(),
                         email = emailInput.text.toString(),
-                        birthday = Date(),
-                        password = passwordInput.text.toString(),
-                        location = "",
-                        phone = "",
-                        uid = ""
+                        birthday = parseLocalDate(birthdayInput.text.toString()),
+                        password = passwordInput.text.toString()
                     )
                 )
             }
