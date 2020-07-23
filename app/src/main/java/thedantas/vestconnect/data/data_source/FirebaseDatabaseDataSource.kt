@@ -1,22 +1,14 @@
 package thedantas.vestconnect.data.data_source
-import android.content.SharedPreferences
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import thedantas.vestconnect.data.model.remote.UserDocument
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.android.awaitFrame
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.sendBlocking
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
-import thedantas.vestconnect.domain.entity.User
+import thedantas.vestconnect.data.model.mapper.toDomain
+import thedantas.vestconnect.data.model.remote.ProductDocument
+import thedantas.vestconnect.domain.entity.Product
 
 class FirebaseDatabaseDataSource constructor(
     private val database: FirebaseDatabase
@@ -24,6 +16,7 @@ class FirebaseDatabaseDataSource constructor(
 
     companion object {
         private const val USERS_COLLECTION = "users"
+        private const val PRODUCTS_COLLECTION = "products"
     }
 
     suspend fun createUser(uid: String, user: UserDocument) {
@@ -35,7 +28,7 @@ class FirebaseDatabaseDataSource constructor(
     }
 
     @ExperimentalCoroutinesApi
-    suspend fun getUser(uid: String) = callbackFlow<User>{
+    suspend fun getUser(uid: String) = callbackFlow<UserDocument>{
 
         val userRef = database.reference.child("$USERS_COLLECTION/$uid")
 
@@ -46,7 +39,7 @@ class FirebaseDatabaseDataSource constructor(
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.let {
-                    val user = it.getValue(User::class.java)
+                    val user = it.getValue(UserDocument::class.java)
                     user?.let { it1 -> this@callbackFlow.sendBlocking(it1) }
                 }
             }
@@ -56,6 +49,37 @@ class FirebaseDatabaseDataSource constructor(
 
         awaitClose{
             userRef.removeEventListener(eventListener)
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    suspend fun getProductListByUserId(id: String) = callbackFlow<MutableList<Product?>>{
+
+        val productRef = database.reference.child(PRODUCTS_COLLECTION)
+            .orderByChild("owner")
+            .equalTo(id)
+
+        val eventListener = object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+                this@callbackFlow.close(error.toException())
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val list = mutableListOf<Product?>()
+                snapshot.let {
+                    it.children.forEach{ data ->
+                        val productDocument = data.getValue(ProductDocument::class.java)
+                        list.add(productDocument?.toDomain())
+                    }
+                    this@callbackFlow.sendBlocking(list)
+                }
+            }
+        }
+
+        productRef.addValueEventListener(eventListener)
+
+        awaitClose{
+            productRef.removeEventListener(eventListener)
         }
     }
 

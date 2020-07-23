@@ -2,6 +2,7 @@ package thedantas.vestconnect.data.data_source
 import android.content.SharedPreferences
 import android.location.Location
 import androidx.core.content.edit
+import thedantas.vestconnect.domain.entity.User
 
 class UserInfoLocalDataSource constructor(
     private val preferences: SharedPreferences
@@ -10,14 +11,17 @@ class UserInfoLocalDataSource constructor(
     companion object {
         private const val PREF_USERNAME = "pref_username"
         private const val PREF_USER_EMAIL = "pref_user_email"
+        private const val PREF_USER_UID = "pref_user_uid"
+        private const val PREF_USER_BIRTHDATE = "pref_user_birthdate"
         private const val PREF_USER_LATITUDE = "pref_user_latitude"
         private const val PREF_USER_LONGITUDE = "pref_user_longitude"
     }
 
-    fun setUserInfo(username: String, userEmail: String) {
+    fun setUserInfo(user : User) {
         preferences.edit(commit = true) {
-            putString(PREF_USERNAME, username)
-            putString(PREF_USER_EMAIL, userEmail)
+            putString(PREF_USER_EMAIL, user.email)
+            putString(PREF_USER_UID, user.uid)
+            putString(PREF_USERNAME, user.holder)
         }
     }
 
@@ -35,6 +39,8 @@ class UserInfoLocalDataSource constructor(
     fun getUsername(): String {
         return preferences.getString(PREF_USERNAME, "") ?: ""
     }
+
+    fun getUserUid() : String = preferences.getString(PREF_USER_UID, "") ?: ""
 
     fun getUserEmail(): String {
         return preferences.getString(PREF_USER_EMAIL, "") ?: ""

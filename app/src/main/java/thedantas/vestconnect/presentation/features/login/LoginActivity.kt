@@ -3,20 +3,29 @@ package thedantas.vestconnect.presentation.features.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.login_activity.*
+import kotlinx.android.synthetic.main.login_activity.loading
+import kotlinx.android.synthetic.main.login_activity.passwordInputLayout
+import org.koin.android.viewmodel.ext.android.viewModel
 import thedantas.vestconnect.R
+import thedantas.vestconnect.base.BaseViewModelActivity
+import thedantas.vestconnect.data.model.domain.UserAuth
+import thedantas.vestconnect.presentation.features.home.HomeActivity
 import thedantas.vestconnect.presentation.features.register.RegisterActivity
 
 /**
  * Created by Denis Costa on 28/06/20.
  */
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseViewModelActivity() {
 
 
     companion object{
         fun newIntent(context : Context) : Intent = Intent(context, LoginActivity::class.java)
     }
+
+    private val loginViewModel : LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +35,65 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        loginViewModel.bind(::render)
+        loginViewModel.listen(::handle)
+
     }
 
 
     private fun initViews(){
 
-        createAccountLabelButton.setOnClickListener { startActivity(RegisterActivity.newIntent(this)) }
+        btEnter.setOnClickListener {
+            if(isValid())
+                loginViewModel.login(
+                    UserAuth(
+                        email = loginEmailInput.text.toString(),
+                        password = loginPwdInput.text.toString()
+                    )
+                )
+        }
 
+        createAccountLabelButton.setOnClickListener {
+            startActivity(RegisterActivity.newIntent(this))
+            finish()
+        }
+    }
+
+    private fun render(state: LoginState) {
+        state::loading partTo ::renderLoading
+    }
+
+    private fun renderLoading(isLoading: Boolean) {
+        loading.apply {
+            isVisible = isLoading
+            isClickable = true
+        }
+    }
+
+    private fun handle(command: LoginCommand) {
+        when (command) {
+            is LoginCommand.LoginSuccess -> {
+                startActivity(HomeActivity.newIntent(this))
+                finish()
+            }
+            is LoginCommand.LoginFailed -> {
+                Toast.makeText(this@LoginActivity, getString(command.message), Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun isValid(): Boolean {
+
+        if (loginEmailInput.text.isNullOrBlank()) {
+            loginEmailInputLayout.error = getString(R.string.register_mandatory_field)
+            return false
+        }
+
+        if (loginPwdInput.text.isNullOrBlank()) {
+            passwordInputLayout.error = getString(R.string.register_mandatory_field)
+            return false
+        }
+
+        return true
     }
 }

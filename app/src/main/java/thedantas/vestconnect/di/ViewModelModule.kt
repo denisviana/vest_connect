@@ -3,6 +3,7 @@ package thedantas.vestconnect.di
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import thedantas.vestconnect.presentation.features.home.HomeViewModel
+import thedantas.vestconnect.presentation.features.login.LoginViewModel
 import thedantas.vestconnect.presentation.features.pre_login.PreLoginViewModel
 import thedantas.vestconnect.presentation.features.register.RegisterViewModel
 import thedantas.vestconnect.presentation.features.splash_screen.SplashViewModel
@@ -13,9 +14,10 @@ import thedantas.vestconnect.presentation.features.splash_screen.SplashViewModel
 
 val viewModelModule = module {
 
-    viewModel { HomeViewModel() }
+    viewModel { HomeViewModel(get(), get()) }
     viewModel { RegisterViewModel(get(), get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { PreLoginViewModel(get()) }
+    viewModel { LoginViewModel(get(),get(),get()) }
 
 }

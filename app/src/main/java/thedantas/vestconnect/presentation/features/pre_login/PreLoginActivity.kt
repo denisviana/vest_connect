@@ -12,7 +12,9 @@ import kotlinx.android.synthetic.main.pre_login_activity.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import thedantas.vestconnect.R
 import thedantas.vestconnect.presentation.features.login.LoginActivity
+import thedantas.vestconnect.presentation.features.nfc_reader.NfcReaderActivity
 import timber.log.Timber
+import java.nio.charset.Charset
 
 class PreLoginActivity : AppCompatActivity(){
 
@@ -30,7 +32,12 @@ class PreLoginActivity : AppCompatActivity(){
     }
 
     private fun initViews(){
-        btAccessAccount.setOnClickListener { startActivity(LoginActivity.newIntent(this)) }
+        btAccessAccount.setOnClickListener {
+            startActivity(LoginActivity.newIntent(this))
+        }
+        btScanProduct.setOnClickListener {
+            startActivity(NfcReaderActivity.newIntent(this))
+        }
     }
 
     private fun getUserLocation(){
@@ -49,4 +56,5 @@ class PreLoginActivity : AppCompatActivity(){
             }
         })
     }
+
 }

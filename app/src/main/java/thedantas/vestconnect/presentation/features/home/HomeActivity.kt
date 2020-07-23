@@ -1,53 +1,94 @@
 package thedantas.vestconnect.presentation.features.home
 
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.nfc.NfcAdapter
-import android.nfc.NfcManager
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.home_activity.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.android.inject
 import thedantas.vestconnect.R
-import thedantas.vestconnect.device.util.NfcUtils
+import thedantas.vestconnect.base.BaseViewModelActivity
+import thedantas.vestconnect.domain.entity.Product
+import thedantas.vestconnect.presentation.features.home.adapter.ProductsAdapter
 
 /**
  * Created by Denis Costa on 28/06/20.
  */
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseViewModelActivity(), ProductsAdapter.OnItemClick {
 
     private val mViewModel : HomeViewModel by inject()
+
+    lateinit var productsAdapter: ProductsAdapter
 
     companion object{
         fun newIntent(context : Context) : Intent = Intent(context, HomeActivity::class.java)
     }
 
+    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
 
-        val intent = intent
-        handleIntents(intent)
+        initViews()
+
+        mViewModel.bind(::render)
+        mViewModel.listen(::handle)
+
+        mViewModel.getProductList()
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        handleIntents(intent)
+    private fun initViews(){
+
+        productsAdapter = ProductsAdapter(
+            R.layout.product_item_layout,
+            mutableListOf(), this)
+
+        rvProducts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvProducts.adapter = productsAdapter
+
     }
 
-    private fun handleIntents(intent: Intent) {
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED  == intent.action ||
-            NfcAdapter.ACTION_TAG_DISCOVERED  == intent.action) {
-            val rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
-            if (rawMsgs != null) {
-                Log.i("NFC UID", NfcUtils.getUID(intent))
-                Toast.makeText(this, NfcUtils.getData(rawMsgs), Toast.LENGTH_SHORT).show()
-                Log.i("NFC Data",  NfcUtils.getData(rawMsgs))
+    private fun render(homeState: HomeState) {
+        homeState::loading partTo ::renderLoading
+        homeState::hasError partTo ::showError
+        homeState::emptyList partTo ::emptyList
+    }
+
+    private fun renderLoading(isLoading: Boolean) {
+        homeLoading.apply {
+            isVisible = isLoading
+            isClickable = true
+        }
+    }
+
+    private fun showError(hasError : Boolean){
+        messageHelper.apply {
+            isVisible = hasError
+        }
+    }
+
+    private fun emptyList(empty : Boolean){
+        messageHelper.apply {
+            isVisible = empty
+            text = if(empty) "Nenhum produto cadastro ainda" else ""
+        }
+    }
+
+    private fun handle(homeCommand: HomeCommand) {
+        when (homeCommand) {
+            is HomeCommand.GetProductListSuccessful -> {
+                productsAdapter.setNewData(homeCommand.products)
+            }
+            is HomeCommand.GetProductListFailed -> {
+                messageHelper.text = homeCommand.message
             }
         }
+    }
+
+    override fun onProductClickListener(item: Product?) {
+
     }
 
 }

@@ -96,15 +96,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <EditText
-            android:inputType="textEmailAddress"
-            android:paddingHorizontal="10dp"
-            android:id="@+id/emailInput"
-            android:background="@drawable/edit_text_state"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginEmailInputLayout"
+            android:background="@android:color/transparent"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_marginTop="8dp"
-            android:focusable="true"
+            app:hintEnabled="false"
+            android:padding="0dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"/>
+            android:layout_height="50dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:padding="0dp"
+                android:id="@+id/loginEmailInput"
+                android:background="@drawable/edit_text_state"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/pwdInputLabel"
@@ -117,15 +130,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <EditText
-            android:inputType="textPassword"
-            android:paddingHorizontal="10dp"
-            android:id="@+id/passwordInput"
-            android:background="@drawable/edit_text_state"
-            android:focusable="true"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordInputLayout"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
             android:layout_marginTop="8dp"
+            app:hintEnabled="false"
+            android:padding="0dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"/>
+            android:layout_height="50dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:padding="0dp"
+                android:id="@+id/loginPwdInput"
+                android:background="@drawable/edit_text_state"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/forgotPwd"
@@ -201,5 +226,14 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <include
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/loading"
+        android:elevation="50dp"
+        layout="@layout/view_fullscreen_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

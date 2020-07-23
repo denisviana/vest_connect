@@ -24,7 +24,7 @@ class RegisterViewModel(
         viewModelScope.launch {
             try {
                 registerUserInteractor.invoke(user)
-                userInfoInteractor.setUserInfo(user.holder, user.email)
+                userInfoInteractor.setUserInfo(user)
                 command.value = RegisterCommand.RegisterSuccessful
             } catch (e: Exception) {
                 Timber.e(e)

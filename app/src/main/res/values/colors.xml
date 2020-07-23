@@ -6,4 +6,5 @@
     <color name="colorAccent">#00B7C4</color>
     <color name="lightGray">#D4D4D4</color>
     <color name="colorDimBackground">#52000000</color>
+    <color name="darkGreen">#19463C</color>
 </resources>

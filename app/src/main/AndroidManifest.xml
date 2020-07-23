@@ -17,18 +17,7 @@
 
 
         <activity
-            android:launchMode="singleTop"
             android:name=".presentation.features.home.HomeActivity">
-
-            <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="text/plain" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
-            </intent-filter>
         </activity>
 
         <activity android:name=".presentation.features.register.RegisterActivity"
@@ -40,6 +29,9 @@
 
         <activity android:name=".presentation.features.login.LoginActivity"
             android:parentActivityName=".presentation.features.pre_login.PreLoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.features.pre_login.PreLoginActivity" />
         </activity>
 
         <activity android:name=".presentation.features.splash_screen.SplashActivity"
@@ -50,6 +42,17 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".presentation.features.nfc_reader.NfcReaderActivity"
+            android:parentActivityName=".presentation.features.pre_login.PreLoginActivity">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tags" />
+        </activity>
 
     </application>
 

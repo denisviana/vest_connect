@@ -38,10 +38,13 @@ class SplashActivity : BaseViewModelActivity(){
     private fun handle(command: SplashCommand) {
         when (command) {
             is SplashCommand.CheckIfIsLoggedInResult -> {
-                if(command.isLogged)
+                if(command.isLogged) {
                     startActivity(HomeActivity.newIntent(this))
-                else
+                    finish()
+                }else {
                     startActivity(PreLoginActivity.newIntent(this))
+                    finish()
+                }
             }
         }
     }

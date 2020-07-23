@@ -84,5 +84,13 @@ dependencies {
     implementation 'com.github.matteocrippa:karamba:1.2.0'
     //EasyLocation
     implementation 'com.github.robinkrsingh:easylocation:0.1.0'
+    //Lottie
+    implementation 'com.airbnb.android:lottie:3.4.1'
+    //Fudi NFC
+    implementation 'com.romellfudi.fudinfc:fudi-nfc:1.0.a'
+    //BaseRecyclerViewAdapterHelper
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.45-androidx'
+    //RoundedImageView
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
 }

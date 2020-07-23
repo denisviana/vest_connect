@@ -42,7 +42,8 @@ class RegisterActivity : BaseViewModelActivity(){
                         holder = nameInput.text.toString(),
                         email = emailInput.text.toString(),
                         birthday = parseLocalDate(birthdayInput.text.toString()),
-                        password = passwordInput.text.toString()
+                        password = passwordInput.text.toString(),
+                        uid = ""
                     )
                 )
             }

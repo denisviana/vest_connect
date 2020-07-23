@@ -4,6 +4,7 @@ import android.location.Location
 import thedantas.vestconnect.data.data_source.UserInfoLocalDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import thedantas.vestconnect.domain.entity.User
 
 class UserInfoInteractor constructor(
     private val userInfoLocalDataSource: UserInfoLocalDataSource
@@ -15,13 +16,17 @@ class UserInfoInteractor constructor(
 
     fun getUserCoordinates() : Pair<Float,Float> = userInfoLocalDataSource.getUserCoordinates()
 
-    suspend fun setUserInfo(username: String, userEmail: String) =
+    suspend fun setUserInfo(user : User) =
         withContext(Dispatchers.Default) {
-            userInfoLocalDataSource.setUserInfo(username, userEmail)
+            userInfoLocalDataSource.setUserInfo(user)
         }
 
     suspend fun getUsername() = withContext(Dispatchers.Default) {
         userInfoLocalDataSource.getUsername()
+    }
+
+    suspend fun getUserUid() = withContext(Dispatchers.Default){
+        userInfoLocalDataSource.getUserUid()
     }
 
     suspend fun getUserEmail() = withContext(Dispatchers.Default) {

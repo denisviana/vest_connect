@@ -15,8 +15,9 @@ fun User.toDocument(latitude : Float, longitude : Float): UserDocument {
     )
 }
 
-fun UserDocument.toDomain(): User {
+fun UserDocument.toDomain(uid : String): User {
     return User(
+        uid = uid,
         holder = holder,
         email = email,
         birthday = dateToLocalDate(Date(birthDate)).toLocalDate(),
