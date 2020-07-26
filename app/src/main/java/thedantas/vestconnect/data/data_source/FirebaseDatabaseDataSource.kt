@@ -83,5 +83,30 @@ class FirebaseDatabaseDataSource constructor(
         }
     }
 
+    @ExperimentalCoroutinesApi
+    suspend fun getProductByNfcTagId(tagId: String) = callbackFlow<Product>{
+
+        val productRef = database.reference.child("$PRODUCTS_COLLECTION/$tagId")
+
+        val eventListener = object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+                this@callbackFlow.close(error.toException())
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.let {
+                    val productDocument = it.getValue(ProductDocument::class.java)
+                    productDocument?.let { it1 -> this@callbackFlow.sendBlocking(it1.toDomain()) }
+                }
+            }
+        }
+
+        productRef.addValueEventListener(eventListener)
+
+        awaitClose{
+            productRef.removeEventListener(eventListener)
+        }
+    }
+
 
 }

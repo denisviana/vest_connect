@@ -84,4 +84,13 @@
         app:lottie_loop="true"
         app:lottie_autoPlay="true"/>
 
+    <include
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/loading"
+        android:elevation="50dp"
+        layout="@layout/view_fullscreen_layout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

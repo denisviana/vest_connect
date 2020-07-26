@@ -5,6 +5,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import thedantas.vestconnect.base.BaseViewModel
 import thedantas.vestconnect.domain.entity.Product
+import thedantas.vestconnect.domain.entity.User
 import thedantas.vestconnect.domain.interactor.GetProductListByUserId
 import thedantas.vestconnect.domain.interactor.UserInfoInteractor
 import timber.log.Timber
@@ -20,7 +21,11 @@ class HomeViewModel(
 ) : BaseViewModel<HomeState, HomeCommand>(){
 
     init {
-        newState(HomeState())
+
+        viewModelScope.launch {
+            newState(HomeState(userName =  userInfoInteractor.getUsername()))
+        }
+
     }
 
     @ExperimentalCoroutinesApi
@@ -50,7 +55,8 @@ class HomeViewModel(
 data class HomeState(
     val loading : Boolean = true,
     val hasError : Boolean = false,
-    val emptyList : Boolean = false
+    val emptyList : Boolean = false,
+    val userName : String = ""
 )
 
 sealed class HomeCommand{

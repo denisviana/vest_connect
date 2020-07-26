@@ -4,7 +4,9 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import thedantas.vestconnect.presentation.features.home.HomeViewModel
 import thedantas.vestconnect.presentation.features.login.LoginViewModel
+import thedantas.vestconnect.presentation.features.nfc_reader.NfcReaderViewModel
 import thedantas.vestconnect.presentation.features.pre_login.PreLoginViewModel
+import thedantas.vestconnect.presentation.features.product_details.ProductDetailsViewModel
 import thedantas.vestconnect.presentation.features.register.RegisterViewModel
 import thedantas.vestconnect.presentation.features.splash_screen.SplashViewModel
 
@@ -19,5 +21,7 @@ val viewModelModule = module {
     viewModel { SplashViewModel(get()) }
     viewModel { PreLoginViewModel(get()) }
     viewModel { LoginViewModel(get(),get(),get()) }
+    viewModel { ProductDetailsViewModel(get()) }
+    viewModel { NfcReaderViewModel(get()) }
 
 }

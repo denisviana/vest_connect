@@ -7,13 +7,19 @@ import android.nfc.*
 import android.os.Bundle
 import android.util.SparseArray
 import android.widget.Toast
+import androidx.core.util.isNotEmpty
+import androidx.core.view.isVisible
 import com.romellfudi.fudinfc.util.sync.NfcReadUtilityImpl
 import kotlinx.android.synthetic.main.activity_nfc_reader.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import matteocrippa.it.karamba.toCamelCase
+import org.koin.android.viewmodel.ext.android.viewModel
 import thedantas.vestconnect.R
 import thedantas.vestconnect.base.BaseViewModelActivity
+import thedantas.vestconnect.presentation.features.product_details.ProductDetailsActivity
 import timber.log.Timber
 
-
+@ExperimentalCoroutinesApi
 class NfcReaderActivity : BaseViewModelActivity(){
 
     private var adapter: NfcAdapter? = null
@@ -21,6 +27,8 @@ class NfcReaderActivity : BaseViewModelActivity(){
     companion object{
         fun newIntent(context : Context) : Intent = Intent(context, NfcReaderActivity::class.java)
     }
+
+    private val nfcReaderViewModel : NfcReaderViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +40,35 @@ class NfcReaderActivity : BaseViewModelActivity(){
 
         initNfcAdapter()
 
+        nfcReaderViewModel.bind(::render)
+        nfcReaderViewModel.listen(::handler)
+
+    }
+
+
+    private fun render(state : NfcReaderState){
+        state::loading partTo ::renderLoading
+    }
+
+    private fun renderLoading(isLoading: Boolean) {
+        loading.apply {
+            isVisible = isLoading
+        }
+        animation_view.apply {
+            isVisible = !isLoading
+        }
+    }
+
+    private fun handler(command: NfcReaderCommand){
+        when(command){
+            is NfcReaderCommand.GetProductByNfcTagIdSuccessful -> {
+                startActivity(ProductDetailsActivity.newIntent(this, command.product))
+                finish()
+            }
+            is NfcReaderCommand.GetProductByNfcTagIdFailed -> {
+                showToast(command.message)
+            }
+        }
     }
 
     override fun onResume() {
@@ -71,8 +108,10 @@ class NfcReaderActivity : BaseViewModelActivity(){
         super.onNewIntent(intent)
         if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action) {
             val items: SparseArray<String> = NfcReadUtilityImpl().readFromTagWithSparseArray(intent)
-            for (i in 0 until items.size()) {
-                showToast(items.valueAt(i).replace("en", ""))
+            if(items.isNotEmpty()) {
+                val tagId = items.valueAt(0).replace("en","").toCamelCase()
+                Timber.i("Tag $tagId")
+                nfcReaderViewModel.getProductByNfcTagId(tagId)
             }
         }
     }

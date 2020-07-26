@@ -1,5 +1,7 @@
 package thedantas.vestconnect.presentation.features.home.adapter
 
+import android.view.View
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -15,7 +17,7 @@ class ProductsAdapter(
     override fun convert(helper: BaseViewHolder?, item: Product?) {
 
         helper?.setText(R.id.productName, item?.name)
-        helper?.setText(R.id.productType, item?.type)
+        helper?.setText(R.id.productDetail, item?.type)
         helper?.setText(R.id.productRegisterDate, item?.registerDate?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
 
         Glide.with(mContext)
@@ -23,6 +25,9 @@ class ProductsAdapter(
             .load(item?.image1)
             .circleCrop()
             .into(helper?.getView(R.id.productImage)!!)
+
+        helper?.getView<CardView>(R.id.productItem)
+            ?.setOnClickListener { listener.onProductClickListener(item) }
 
     }
 

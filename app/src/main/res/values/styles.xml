@@ -9,6 +9,10 @@
         <item name="android:colorControlNormal">@color/colorPrimary</item>
     </style>
 
+    <style name="SecondaryStyle" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <item name="colorControlNormal">#fff</item>
+    </style>
+
     <style name="RegisterToolbarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize color of navigation drawer icon and back arrow -->
         <item name="colorControlNormal">#fff</item>

@@ -8,6 +8,8 @@
     android:layout_height="180dp"
     app:cardCornerRadius="20dp"
     android:id="@+id/productItem"
+    android:clickable="true"
+    android:focusable="true"
     android:orientation="horizontal"
     app:cardBackgroundColor="@color/darkGreen"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -62,7 +64,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/productType"
+                android:id="@+id/productDetail"
                 android:layout_marginTop="5dp"
                 android:textColor="#fff"
                 android:textSize="12sp"

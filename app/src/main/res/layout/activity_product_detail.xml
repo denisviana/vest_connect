@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:gravity="center_vertical"
+            android:elevation="0dp"
+            app:titleTextColor="#fff"
+            app:theme="@style/SecondaryStyle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="?attr/actionBarSize"/>
+
+
+        <androidx.core.widget.NestedScrollView
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/topGuideline"
+                    app:layout_constraintGuide_begin="20dp"
+                    android:orientation="horizontal"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/leftGuideline"
+                    app:layout_constraintGuide_begin="25dip"
+                    android:orientation="vertical"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rightGuideline"
+                    app:layout_constraintGuide_end="25dip"
+                    android:orientation="vertical"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bottomGuideline"
+                    app:layout_constraintGuide_end="16dp"
+                    android:orientation="horizontal"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/centerVerticalGuideline"
+                    app:layout_constraintGuide_percent="0.5"
+                    android:orientation="vertical"/>
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    app:layout_constraintTop_toBottomOf="@id/topGuideline"
+                    app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                    app:layout_constraintStart_toEndOf="@id/leftGuideline"
+                    android:id="@+id/productImage"
+                    android:scaleType="centerCrop"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:riv_corner_radius="10dip"
+                    app:layout_constraintHeight_percent="0.4"
+                    app:layout_constraintWidth_percent="0.8"/>
+
+                <TextView
+                    android:id="@+id/productDetail"
+                    android:text="Camisa Sócio Torcedor 20/21"
+                    app:layout_constraintTop_toBottomOf="@id/productImage"
+                    app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                    app:layout_constraintStart_toEndOf="@id/leftGuideline"
+                    app:layout_constraintWidth_percent="0.8"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:layout_width="0dp"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/productDescription"
+                    android:text="Essa é a primeira camisa do Coxa a vir com um chip embarcado que dá acesso a um conteúdo exclusivo do clube.\n\nE ela é sua! \n\nAgradecemos a você, sócio torcedor, que nos apoia há tanto tempo.\n\nObrigado."
+                    app:layout_constraintTop_toBottomOf="@id/productDetail"
+                    app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                    app:layout_constraintStart_toEndOf="@id/leftGuideline"
+                    app:layout_constraintWidth_percent="0.8"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#000"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/btLinkProductToAccount"
+                    android:textColor="@android:color/white"
+                    android:text="Vincular a conta"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:background="@drawable/button_shape"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/productDescription"
+                    app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                    app:layout_constraintStart_toEndOf="@id/leftGuideline"
+                    app:layout_constraintWidth_percent="0.8"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"/>
+
+                <LinearLayout
+                    app:layout_constraintBottom_toTopOf="@id/bottomGuideline"
+                    android:id="@+id/productFullDetailsContainer"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/productDescription"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@id/rightGuideline"
+                    app:layout_constraintStart_toEndOf="@id/leftGuideline"
+                    app:layout_constraintWidth_percent="0.8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:background="#000"
+                        android:layout_height="0.3dp"
+                        android:layout_width="match_parent"/>
+
+                    <TextView
+                        android:text="STATUS"
+                        android:textStyle="bold"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/productStatus"
+                        android:text="Ativo"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="CATEGORIA"
+                        android:textStyle="bold"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/productCategory"
+                        android:text="Camisa de futebol"
+                        android:textColor="#000"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="TIPO"
+                        android:textStyle="bold"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/productType"
+                        android:text="Conteúdo exclusivo para sócios"
+                        android:textColor="#000"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="IDENTIFICADOR"
+                        android:textStyle="bold"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/productIdentifier"
+                        android:text="CFC20205169"
+                        android:textColor="#000"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="DATA DO REGISTRO"
+                        android:textStyle="bold"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/productRegisterDate"
+                        android:text="19/06/2020 - 16h32"
+                        android:textColor="#000"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="DATA DE VALIDADE"
+                        android:textStyle="bold"
+                        android:textColor="#000"
+                        android:textSize="12sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/productExpirationDate"
+                        android:text="19/06/2021 - 23h59"
+                        android:textColor="#000"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="parent"
+            android:id="@+id/loading"
+            android:elevation="50dp"
+            layout="@layout/view_fullscreen_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

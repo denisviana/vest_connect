@@ -4,7 +4,6 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import thedantas.vestconnect.data.model.remote.ProductDocument
 import thedantas.vestconnect.domain.entity.Product
-import thedantas.vestconnect.presentation.util.parseLocalDate
 
 fun ProductDocument.toDomain() : Product{
     return Product(
@@ -13,7 +12,7 @@ fun ProductDocument.toDomain() : Product{
         contact = contact,
         description = description,
         detail = detail,
-        expireDate = LocalDate.parse(experitionDate, DateTimeFormatter.ISO_DATE_TIME),
+        expirationDate = LocalDate.parse(experitionDate, DateTimeFormatter.ISO_DATE_TIME),
         fabricator = fabricator,
         identify = identify,
         image1 = image1,

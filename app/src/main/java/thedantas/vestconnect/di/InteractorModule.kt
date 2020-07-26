@@ -11,5 +11,6 @@ val interactorModule = module {
     single { GetUserInteractor(get())}
     single { LoginUserInteractor(get())}
     single { GetProductListByUserId(get()) }
+    single { GetProductByNfcTagId(get()) }
 
 }
