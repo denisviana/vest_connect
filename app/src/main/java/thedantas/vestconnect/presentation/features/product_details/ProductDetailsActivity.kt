@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
@@ -52,6 +54,9 @@ class ProductDetailsActivity : BaseViewModelActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = product.fabricator
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val window: Window = window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = color
 
         initViews(product)
 

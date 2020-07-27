@@ -53,8 +53,15 @@
             <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tags" />
         </activity>
+
         <activity android:name=".presentation.features.product_details.ProductDetailsActivity"
             android:parentActivityName=".presentation.features.home.HomeActivity"/>
+
+        <activity android:name=".presentation.features.youtube_player.YouTubePlayerActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" />
+
+        <activity android:name=".presentation.features.product_content.ProductContentActivity"
+            android:parentActivityName=".presentation.features.product_details.ProductDetailsActivity"/>
 
     </application>
 

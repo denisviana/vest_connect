@@ -94,5 +94,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     //Swipe to Refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    //Android Youtube Player
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
 }
