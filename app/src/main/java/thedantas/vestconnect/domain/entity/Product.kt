@@ -13,7 +13,7 @@ data class Product(
     val contact : String,
     val description : String,
     val detail : String,
-    val expirationDate : LocalDate,
+    val expirationDate : LocalDate ? = null,
     val fabricator : String,
     val identify : String,
     val image1 : String,

@@ -8,10 +8,12 @@ import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.login_activity.*
 import kotlinx.android.synthetic.main.login_activity.loading
 import kotlinx.android.synthetic.main.login_activity.passwordInputLayout
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 import thedantas.vestconnect.R
 import thedantas.vestconnect.base.BaseViewModelActivity
 import thedantas.vestconnect.data.model.domain.UserAuth
+import thedantas.vestconnect.domain.entity.Product
 import thedantas.vestconnect.presentation.features.home.HomeActivity
 import thedantas.vestconnect.presentation.features.register.RegisterActivity
 
@@ -22,10 +24,17 @@ class LoginActivity : BaseViewModelActivity() {
 
 
     companion object{
-        fun newIntent(context : Context) : Intent = Intent(context, LoginActivity::class.java)
+
+        private const val TAG = "product"
+
+        fun newIntent(context : Context, product: Product? = null) : Intent = Intent(context, LoginActivity::class.java).apply {
+            if(product != null)
+                putExtra(TAG, product)
+        }
     }
 
     private val loginViewModel : LoginViewModel by viewModel()
+    private var productToLink : Product? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +44,20 @@ class LoginActivity : BaseViewModelActivity() {
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        if(intent.hasExtra(TAG) && intent.getParcelableExtra<Product>(TAG) != null)
+            productToLink = intent.getParcelableExtra(TAG)
+
+        productToLink?.let {
+            loginViewModel.setProductToLink(it)
+        }
+
         loginViewModel.bind(::render)
         loginViewModel.listen(::handle)
 
     }
 
 
+    @ExperimentalCoroutinesApi
     private fun initViews(){
 
         btEnter.setOnClickListener {
@@ -54,7 +71,7 @@ class LoginActivity : BaseViewModelActivity() {
         }
 
         createAccountLabelButton.setOnClickListener {
-            startActivity(RegisterActivity.newIntent(this))
+            startActivity(RegisterActivity.newIntent(this, productToLink))
             finish()
         }
     }

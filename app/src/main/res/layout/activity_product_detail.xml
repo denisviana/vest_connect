@@ -231,6 +231,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/expirationDateLabel"
                         android:text="DATA DE VALIDADE"
                         android:textStyle="bold"
                         android:textColor="#000"

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.first
 import thedantas.vestconnect.data.data_source.FirebaseDatabaseDataSource
 import thedantas.vestconnect.domain.entity.Product
 
-class GetProductByNfcTagId(
+class GetProductByNfcTagIdInteractor(
     private  val firebaseDatabaseDataSource: FirebaseDatabaseDataSource
 ) {
 

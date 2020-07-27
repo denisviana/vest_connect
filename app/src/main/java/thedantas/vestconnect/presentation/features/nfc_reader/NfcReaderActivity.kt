@@ -18,6 +18,7 @@ import thedantas.vestconnect.R
 import thedantas.vestconnect.base.BaseViewModelActivity
 import thedantas.vestconnect.presentation.features.product_details.ProductDetailsActivity
 import timber.log.Timber
+import java.util.*
 
 @ExperimentalCoroutinesApi
 class NfcReaderActivity : BaseViewModelActivity(){
@@ -109,7 +110,7 @@ class NfcReaderActivity : BaseViewModelActivity(){
         if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action) {
             val items: SparseArray<String> = NfcReadUtilityImpl().readFromTagWithSparseArray(intent)
             if(items.isNotEmpty()) {
-                val tagId = items.valueAt(0).replace("en","").toCamelCase()
+                val tagId = items.valueAt(0).replace("en", "").toLowerCase(Locale.ROOT)
                 Timber.i("Tag $tagId")
                 nfcReaderViewModel.getProductByNfcTagId(tagId)
             }

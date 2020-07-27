@@ -7,7 +7,7 @@ import thedantas.vestconnect.base.BaseViewModel
 import thedantas.vestconnect.domain.interactor.UserAuthInteractor
 
 class SplashViewModel(
-    val userAuthInteractor: UserAuthInteractor
+    private val userAuthInteractor: UserAuthInteractor
 ) : BaseViewModel<SplashState, SplashCommand>() {
 
 

@@ -9,8 +9,11 @@ import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.register_activity.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 import thedantas.vestconnect.R
 import thedantas.vestconnect.base.BaseViewModelActivity
+import thedantas.vestconnect.domain.entity.Product
 import thedantas.vestconnect.domain.entity.User
 import thedantas.vestconnect.presentation.features.home.HomeActivity
 import thedantas.vestconnect.presentation.util.isValidDate
@@ -19,10 +22,19 @@ import thedantas.vestconnect.presentation.util.parseLocalDate
 class RegisterActivity : BaseViewModelActivity(){
 
     companion object{
-        fun newIntent(context : Context) : Intent = Intent(context, RegisterActivity::class.java)
+
+        private const val TAG = "product"
+
+        fun newIntent(context : Context, product: Product? = null) : Intent = Intent(context, RegisterActivity::class.java)
+            .apply {
+                product?.let {
+                    putExtra(TAG, it)
+                }
+            }
     }
 
     private val mViewModel : RegisterViewModel by viewModel()
+    private var productToLink: Product? = null
 
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +46,13 @@ class RegisterActivity : BaseViewModelActivity(){
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loading.isVisible = false
 
+        if(intent.hasExtra(TAG) && intent.getParcelableExtra<Product>(TAG) != null){
+            productToLink = intent.getParcelableExtra(TAG)
+            productToLink?.let {
+                mViewModel.setProductToLink(it)
+            }
+        }
+
         btCreateAccount.setOnClickListener {
 
             if(isValid()){
@@ -41,7 +60,7 @@ class RegisterActivity : BaseViewModelActivity(){
                     User(
                         holder = nameInput.text.toString(),
                         email = emailInput.text.toString(),
-                        birthday = parseLocalDate(birthdayInput.text.toString()),
+                        birthday = LocalDate.parse(birthdayInput.text.toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                         password = passwordInput.text.toString(),
                         uid = ""
                     )
@@ -109,7 +128,10 @@ class RegisterActivity : BaseViewModelActivity(){
 
     private fun handle(command: RegisterCommand) {
         when (command) {
-            is RegisterCommand.RegisterSuccessful -> startActivity(HomeActivity.newIntent(this))
+            is RegisterCommand.RegisterSuccessful -> {
+                startActivity(HomeActivity.newIntent(this))
+                finishAffinity()
+            }
             is RegisterCommand.RegisterFailed -> {
                 btCreateAccount.isEnabled = true
                 Toast.makeText(this@RegisterActivity, getString(command.message),Toast.LENGTH_LONG).show()

@@ -12,7 +12,7 @@ fun ProductDocument.toDomain() : Product{
         contact = contact,
         description = description,
         detail = detail,
-        expirationDate = LocalDate.parse(experitionDate, DateTimeFormatter.ISO_DATE_TIME),
+        expirationDate = if(experitionDate != null )  LocalDate.parse(experitionDate, DateTimeFormatter.ISO_DATE_TIME) else null,
         fabricator = fabricator,
         identify = identify,
         image1 = image1,

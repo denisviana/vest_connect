@@ -5,11 +5,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import thedantas.vestconnect.base.BaseViewModel
 import thedantas.vestconnect.domain.entity.Product
-import thedantas.vestconnect.domain.interactor.GetProductByNfcTagId
+import thedantas.vestconnect.domain.interactor.GetProductByNfcTagIdInteractor
 import timber.log.Timber
 
 class NfcReaderViewModel(
-    private val getProductByNfcTagIdInteractor: GetProductByNfcTagId
+    private val getProductByNfcTagIdInteractorInteractor: GetProductByNfcTagIdInteractor
 ) : BaseViewModel<NfcReaderState, NfcReaderCommand>() {
 
     init {
@@ -25,7 +25,7 @@ class NfcReaderViewModel(
 
             try {
                 newState(NfcReaderState(loading = false))
-                val product = getProductByNfcTagIdInteractor(tagId)
+                val product = getProductByNfcTagIdInteractorInteractor(tagId)
                 command.value = NfcReaderCommand.GetProductByNfcTagIdSuccessful(product = product)
 
             }catch (e : Exception){

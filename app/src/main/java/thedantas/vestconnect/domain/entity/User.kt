@@ -14,5 +14,6 @@ data class User(
   val birthday: LocalDate,
   val password: String,
   val latitude : Float ? = null,
-  val longitude : Float ? = null
+  val longitude : Float ? = null,
+  val tags : MutableList<String> = mutableListOf()
 ) : Parcelable

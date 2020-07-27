@@ -1,5 +1,6 @@
 package thedantas.vestconnect.presentation.features.product_details
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -11,12 +12,15 @@ import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import kotlinx.android.synthetic.main.login_activity.loading
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.threeten.bp.format.DateTimeFormatter
 import thedantas.vestconnect.R
 import thedantas.vestconnect.base.BaseViewModelActivity
 import thedantas.vestconnect.domain.entity.Product
+import thedantas.vestconnect.presentation.features.login.LoginActivity
 
+@ExperimentalCoroutinesApi
 class ProductDetailsActivity : BaseViewModelActivity() {
 
     private val productDetailsViewModel : ProductDetailsViewModel by viewModel()
@@ -35,6 +39,7 @@ class ProductDetailsActivity : BaseViewModelActivity() {
 
     private lateinit var product : Product
     private var color = 0
+    private var linked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,13 +79,20 @@ class ProductDetailsActivity : BaseViewModelActivity() {
         productType.text = product.type
         productIdentifier.text = product.identify
         productRegisterDate.text = product.registerDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-        productExpirationDate.text = product.expirationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+
+
+        if(product.expirationDate != null){
+            productExpirationDate.text = product.expirationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        }
+
+        btLinkProductToAccount.setOnClickListener { productDetailsViewModel.linkProductToUser(product) }
 
     }
 
     private fun render(state: ProductDetailsState) {
         state::loading partTo ::renderLoading
         state::showMoreDetailsContainer partTo  ::renderProductMoreDetailsContainer
+        state::showLinkButton partTo ::showLinkButton
     }
 
     private fun renderLoading(isLoading: Boolean) {
@@ -94,20 +106,33 @@ class ProductDetailsActivity : BaseViewModelActivity() {
         productFullDetailsContainer.apply {
             visibility = if(renderContainer) VISIBLE else GONE
         }
+    }
+
+    private fun showLinkButton(showLinkButton : Boolean){
         btLinkProductToAccount.apply {
-            isVisible = !renderContainer
+            isVisible = showLinkButton
         }
     }
 
     private fun handle(command: ProductDetailsCommand) {
         when (command) {
-            is ProductDetailsCommand.LinkProductToAccountSuccessful -> {
-
+            is ProductDetailsCommand.LinkProductToUserSuccessful -> {
+                linked = true
+                initViews(command.product)
             }
-            is ProductDetailsCommand.LinkProductToAccountFailed -> {
+            is ProductDetailsCommand.LinkProductToUserFailed -> {
                 Toast.makeText(this@ProductDetailsActivity, command.message, Toast.LENGTH_LONG).show()
             }
+            is ProductDetailsCommand.UserIsNotLoggedIn -> {
+                startActivity(LoginActivity.newIntent(this, command.product))
+            }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(linked)
+            setResult(Activity.RESULT_OK)
     }
 
 }

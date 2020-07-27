@@ -1,5 +1,6 @@
 package thedantas.vestconnect.presentation.features.home
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -44,6 +45,7 @@ class HomeActivity : BaseViewModelActivity(), ProductsAdapter.OnItemClick {
         mViewModel.getProductList()
     }
 
+    @ExperimentalCoroutinesApi
     private fun initViews(){
 
         rvProducts.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -53,8 +55,12 @@ class HomeActivity : BaseViewModelActivity(), ProductsAdapter.OnItemClick {
             mutableListOf(), this)
 
         val view = getHeaderView(View.OnClickListener {
-            startActivity(NfcReaderActivity.newIntent(this))
+            startActivityForResult(NfcReaderActivity.newIntent(this), 100)
         })
+
+        swipeToRefresh.setOnRefreshListener {
+            mViewModel.refreshProductList()
+        }
 
         productsAdapter.addHeaderView(view)
 
@@ -109,11 +115,25 @@ class HomeActivity : BaseViewModelActivity(), ProductsAdapter.OnItemClick {
             is HomeCommand.GetProductListFailed -> {
                 messageHelper.text = homeCommand.message
             }
+            is HomeCommand.RefreshProductListSuccessful -> {
+                productsAdapter.setNewData(homeCommand.products)
+                swipeToRefresh.isRefreshing = false
+            }
         }
     }
 
+    @ExperimentalCoroutinesApi
     override fun onProductClickListener(item: Product?) {
         startActivity(ProductDetailsActivity.newIntent(this, item!!))
+    }
+
+    @ExperimentalCoroutinesApi
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 100 && resultCode == Activity.RESULT_OK){
+            mViewModel.refreshProductList()
+        }
     }
 
 }

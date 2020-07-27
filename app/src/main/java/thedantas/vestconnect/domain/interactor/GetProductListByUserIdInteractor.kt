@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.first
 import thedantas.vestconnect.data.data_source.FirebaseDatabaseDataSource
 import thedantas.vestconnect.domain.entity.Product
 
-class GetProductListByUserId(
+class GetProductListByUserIdInteractor(
     private  val firebaseDatabaseDataSource: FirebaseDatabaseDataSource
 ) {
 

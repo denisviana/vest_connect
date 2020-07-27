@@ -6,9 +6,17 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import matteocrippa.it.karamba.toCamelCase
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
 import thedantas.vestconnect.data.model.mapper.toDomain
+import thedantas.vestconnect.data.model.mapper.toMap
 import thedantas.vestconnect.data.model.remote.ProductDocument
 import thedantas.vestconnect.domain.entity.Product
+import thedantas.vestconnect.domain.entity.User
+import java.util.*
+import kotlin.collections.HashMap
 
 class FirebaseDatabaseDataSource constructor(
     private val database: FirebaseDatabase
@@ -25,6 +33,30 @@ class FirebaseDatabaseDataSource constructor(
             .child(uid)
             .setValue(user)
             .await()
+    }
+
+    suspend fun linkProductToUser(user: User, product: Product) : Product{
+
+        user.tags.add(product.tag)
+
+        database.reference
+            .child(USERS_COLLECTION)
+            .child(user.uid)
+            .updateChildren(user.toMap())
+            .await()
+
+        val ownerChild : Map<String,String> = HashMap<String,String>().apply {
+            put("owner", user.uid)
+            put("registerDate", LocalDate.now().atStartOfDay().format(DateTimeFormatter.ISO_DATE_TIME))
+        }
+
+        database.reference
+            .child(PRODUCTS_COLLECTION)
+            .child(product.tag.toLowerCase(Locale.ROOT))
+            .updateChildren(ownerChild)
+            .await()
+
+        return product.copy(owner = user.uid)
     }
 
     @ExperimentalCoroutinesApi

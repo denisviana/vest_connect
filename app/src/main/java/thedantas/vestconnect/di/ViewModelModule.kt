@@ -17,11 +17,11 @@ import thedantas.vestconnect.presentation.features.splash_screen.SplashViewModel
 val viewModelModule = module {
 
     viewModel { HomeViewModel(get(), get()) }
-    viewModel { RegisterViewModel(get(), get()) }
+    viewModel { RegisterViewModel(get(), get(), get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { PreLoginViewModel(get()) }
-    viewModel { LoginViewModel(get(),get(),get()) }
-    viewModel { ProductDetailsViewModel(get()) }
+    viewModel { LoginViewModel(get(),get(),get(), get()) }
+    viewModel { ProductDetailsViewModel(get(), get(), get(), get(), get()) }
     viewModel { NfcReaderViewModel(get()) }
 
 }
