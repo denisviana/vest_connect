@@ -7,13 +7,13 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.login_activity.*
 import kotlinx.android.synthetic.main.login_activity.loading
-import kotlinx.android.synthetic.main.login_activity.passwordInputLayout
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 import thedantas.vestconnect.R
 import thedantas.vestconnect.base.BaseViewModelActivity
 import thedantas.vestconnect.data.model.domain.UserAuth
 import thedantas.vestconnect.domain.entity.Product
+import thedantas.vestconnect.presentation.features.forgot_password.ForgotPasswordActivity
 import thedantas.vestconnect.presentation.features.home.HomeActivity
 import thedantas.vestconnect.presentation.features.register.RegisterActivity
 
@@ -74,6 +74,10 @@ class LoginActivity : BaseViewModelActivity() {
             startActivity(RegisterActivity.newIntent(this, productToLink))
             finish()
         }
+
+        forgotPwd.setOnClickListener {
+            startActivity(ForgotPasswordActivity.newIntent(this))
+        }
     }
 
     private fun render(state: LoginState) {
@@ -103,11 +107,6 @@ class LoginActivity : BaseViewModelActivity() {
 
         if (loginEmailInput.text.isNullOrBlank()) {
             loginEmailInputLayout.error = getString(R.string.register_mandatory_field)
-            return false
-        }
-
-        if (loginPwdInput.text.isNullOrBlank()) {
-            passwordInputLayout.error = getString(R.string.register_mandatory_field)
             return false
         }
 

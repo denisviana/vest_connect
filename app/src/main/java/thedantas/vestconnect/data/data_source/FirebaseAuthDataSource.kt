@@ -40,4 +40,8 @@ class FirebaseAuthDataSource {
     suspend fun deleteUser() {
         firebaseAuth.currentUser?.delete()?.await()
     }
+
+    suspend fun forgotPassword(email: String){
+        firebaseAuth.sendPasswordResetEmail(email).await()
+    }
 }

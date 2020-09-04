@@ -37,4 +37,11 @@ class UserInfoInteractor constructor(
         userInfoLocalDataSource.clear()
     }
 
+    suspend fun setOnboardingIntroShowed(){
+        userInfoLocalDataSource.setOnboardingIntroShowed()
+    }
+
+    suspend fun wasOnboardingIntroShowed() : Boolean{
+        return userInfoLocalDataSource.wasOnboardingIntroShowed()
+    }
 }

@@ -11,7 +11,7 @@ data class User(
   val uid : String,
   val holder: String,
   val email: String,
-  val birthday: LocalDate,
+  val birthDate: LocalDate,
   val password: String,
   val latitude : Float ? = null,
   val longitude : Float ? = null,

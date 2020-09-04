@@ -9,5 +9,6 @@ interface AuthRepository {
     fun signOut(authData: AuthData) : Pair<Boolean,String>
     fun forgotPassword(authData: AuthData): Pair<Boolean,String>
     fun signUp(user: User, password : String) : User
+    fun sendForgotPasswordEmail(email: String)
 
 }

@@ -17,6 +17,7 @@ import thedantas.vestconnect.presentation.features.home.adapter.ProductsAdapter
 import thedantas.vestconnect.presentation.features.nfc_reader.NfcReaderActivity
 import thedantas.vestconnect.presentation.features.product_content.ProductContentActivity
 import thedantas.vestconnect.presentation.features.product_details.ProductDetailsActivity
+import thedantas.vestconnect.presentation.features.product_details.ProductDetailsCommand
 import thedantas.vestconnect.presentation.helper.YouTubeHelper
 import java.util.*
 
@@ -126,8 +127,9 @@ class HomeActivity : BaseViewModelActivity(), ProductsAdapter.OnItemClick {
     }
 
 
+    @ExperimentalCoroutinesApi
     override fun onProductClickListener(item: Product?) {
-        startActivity(ProductContentActivity.newIntent(this, item!!))
+        startActivity(ProductDetailsActivity.newIntent(this, item!!))
     }
 
     @ExperimentalCoroutinesApi

@@ -25,4 +25,8 @@ class AuthRepositoryImpl(
         TODO("Not yet implemented")
     }
 
+    override fun sendForgotPasswordEmail(email: String) {
+        TODO("Not yet implemented")
+    }
+
 }

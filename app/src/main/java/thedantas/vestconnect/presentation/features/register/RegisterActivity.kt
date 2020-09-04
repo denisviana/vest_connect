@@ -17,7 +17,6 @@ import thedantas.vestconnect.domain.entity.Product
 import thedantas.vestconnect.domain.entity.User
 import thedantas.vestconnect.presentation.features.home.HomeActivity
 import thedantas.vestconnect.presentation.util.isValidDate
-import thedantas.vestconnect.presentation.util.parseLocalDate
 
 class RegisterActivity : BaseViewModelActivity(){
 
@@ -60,7 +59,7 @@ class RegisterActivity : BaseViewModelActivity(){
                     User(
                         holder = nameInput.text.toString(),
                         email = emailInput.text.toString(),
-                        birthday = LocalDate.parse(birthdayInput.text.toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                        birthDate = LocalDate.parse(birthdayInput.text.toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                         password = passwordInput.text.toString(),
                         uid = ""
                     )

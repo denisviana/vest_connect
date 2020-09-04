@@ -18,7 +18,7 @@ class ProductsAdapter(
 
         helper?.setText(R.id.productName, item?.name)
         helper?.setText(R.id.productDetail, item?.type)
-        helper?.setText(R.id.productRegisterDate, item?.registerDate?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+        helper?.setText(R.id.productRegisterDate, item?.registerDate?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm")))
 
         Glide.with(mContext)
             .asDrawable()

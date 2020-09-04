@@ -49,7 +49,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data android:mimeType="text/plain" />
             </intent-filter>-->
-
             <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tags" />
         </activity>
@@ -58,10 +57,16 @@
             android:parentActivityName=".presentation.features.home.HomeActivity"/>
 
         <activity android:name=".presentation.features.youtube_player.YouTubePlayerActivity"
+            android:parentActivityName=".presentation.features.product_content.ProductContentActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" />
 
         <activity android:name=".presentation.features.product_content.ProductContentActivity"
             android:parentActivityName=".presentation.features.product_details.ProductDetailsActivity"/>
+
+        <activity android:name=".presentation.features.onboarding.OnboardingActivity" />
+
+        <activity android:name=".presentation.features.forgot_password.ForgotPasswordActivity"
+            android:parentActivityName=".presentation.features.login.LoginActivity"/>
 
     </application>
 

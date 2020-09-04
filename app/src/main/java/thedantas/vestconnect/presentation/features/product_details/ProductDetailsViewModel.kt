@@ -31,7 +31,8 @@ class ProductDetailsViewModel(
                     showMoreDetailsContainer = authInteractor.isUserLogged() && product.owner == userInfoInteractor.getUserUid(),
                     showLinkButton =
                     (authInteractor.isUserLogged() && product.owner.isEmpty()) ||
-                            (!userAuthInteractor.isUserLogged() && product.owner.isEmpty())
+                            (!userAuthInteractor.isUserLogged() && product.owner.isEmpty()),
+                    showAccessContentButton = authInteractor.isUserLogged() && product.owner == userInfoInteractor.getUserUid()
                 )
             )
         }
@@ -75,7 +76,8 @@ class ProductDetailsViewModel(
 data class ProductDetailsState(
     val loading : Boolean = false,
     val showMoreDetailsContainer : Boolean = false,
-    val showLinkButton : Boolean = false
+    val showLinkButton : Boolean = false,
+    val showAccessContentButton : Boolean = false
 )
 
 sealed class ProductDetailsCommand{

@@ -15,6 +15,7 @@ class UserInfoLocalDataSource constructor(
         private const val PREF_USER_BIRTHDATE = "pref_user_birthdate"
         private const val PREF_USER_LATITUDE = "pref_user_latitude"
         private const val PREF_USER_LONGITUDE = "pref_user_longitude"
+        private const val PREF_USER_ONBOARDING = "pref_user_onboarding"
     }
 
     fun setUserInfo(user : User) {
@@ -44,6 +45,18 @@ class UserInfoLocalDataSource constructor(
 
     fun getUserEmail(): String {
         return preferences.getString(PREF_USER_EMAIL, "") ?: ""
+    }
+
+    fun setOnboardingIntroShowed(){
+        preferences.edit(commit = true){
+            putBoolean(PREF_USER_ONBOARDING, true)
+        }
+    }
+
+    fun wasOnboardingIntroShowed() : Boolean{
+        return preferences.getBoolean(
+            PREF_USER_ONBOARDING, false
+        )
     }
 
     fun clear() {

@@ -47,7 +47,7 @@ class FirebaseDatabaseDataSource constructor(
 
         val ownerChild : Map<String,String> = HashMap<String,String>().apply {
             put("owner", user.uid)
-            put("registerDate", LocalDate.now().atStartOfDay().format(DateTimeFormatter.ISO_DATE_TIME))
+            put("registerDate", LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
         }
 
         database.reference

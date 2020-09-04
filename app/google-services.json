@@ -8,6 +8,50 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:944944828798:android:37d96570b73f3cdb4da32f",
+        "android_client_info": {
+          "package_name": "com.denisviana.vestconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944944828798-0gm46j2oseu9cc2g039e8i0i0ea4ef8r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.denisviana.vestconnect",
+            "certificate_hash": "d0f52661b8eed17da1c5d91ccad71d09cc39da6b"
+          }
+        },
+        {
+          "client_id": "944944828798-68l5j4gpir14jhjm4f05stun2s821ka9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB218RSEQBF2jDL3QQjCw2AuQ-ijmcDAks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944944828798-68l5j4gpir14jhjm4f05stun2s821ka9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "944944828798-h5hsjj5uddikja7u5lp4qaf31l02pt9q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "thedantas.com.VestConnect-app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:944944828798:android:7f9853856da44be14da32f",
         "android_client_info": {
           "package_name": "thedantas.vestconnect"

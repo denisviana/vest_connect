@@ -1,6 +1,7 @@
 package thedantas.vestconnect.data.model.mapper
 
 import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import thedantas.vestconnect.data.model.remote.ProductDocument
 import thedantas.vestconnect.domain.entity.Product
@@ -12,7 +13,7 @@ fun ProductDocument.toDomain() : Product{
         contact = contact,
         description = description,
         detail = detail,
-        expirationDate = if(experitionDate != null )  LocalDate.parse(experitionDate, DateTimeFormatter.ISO_DATE_TIME) else null,
+        expirationDate = if(experitionDate != null )  LocalDateTime.parse(experitionDate, DateTimeFormatter.ISO_DATE_TIME) else null,
         fabricator = fabricator,
         identify = identify,
         image1 = image1,
@@ -22,7 +23,7 @@ fun ProductDocument.toDomain() : Product{
         linkVideo2 = linkVideo2,
         owner = owner,
         primaryColor = primaryColor,
-        registerDate = LocalDate.parse(registerDate, DateTimeFormatter.ISO_DATE_TIME),
+        registerDate = LocalDateTime.parse(registerDate, DateTimeFormatter.ISO_DATE_TIME),
         secondaryColor = secondaryColor,
         status = status,
         tag = tag,

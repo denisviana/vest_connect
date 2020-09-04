@@ -21,6 +21,7 @@ import thedantas.vestconnect.R
 import thedantas.vestconnect.base.BaseViewModelActivity
 import thedantas.vestconnect.domain.entity.Product
 import thedantas.vestconnect.presentation.features.login.LoginActivity
+import thedantas.vestconnect.presentation.features.product_content.ProductContentActivity
 
 @ExperimentalCoroutinesApi
 class ProductDetailsActivity : BaseViewModelActivity() {
@@ -83,14 +84,20 @@ class ProductDetailsActivity : BaseViewModelActivity() {
         productCategory.text = product.category
         productType.text = product.type
         productIdentifier.text = product.identify
-        productRegisterDate.text = product.registerDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        productRegisterDate.text = product.registerDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm"))
 
 
         if(product.expirationDate != null){
-            productExpirationDate.text = product.expirationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            expirationDateLabel.visibility = VISIBLE
+            productExpirationDate.visibility = VISIBLE
+            productExpirationDate.text = product.expirationDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm"))
+        }else{
+            expirationDateLabel.visibility = GONE
+            productExpirationDate.visibility = GONE
         }
 
         btLinkProductToAccount.setOnClickListener { productDetailsViewModel.linkProductToUser(product) }
+        btAccessProductContent.setOnClickListener { startActivity(ProductContentActivity.newIntent(this, product)) }
 
     }
 
@@ -98,6 +105,7 @@ class ProductDetailsActivity : BaseViewModelActivity() {
         state::loading partTo ::renderLoading
         state::showMoreDetailsContainer partTo  ::renderProductMoreDetailsContainer
         state::showLinkButton partTo ::showLinkButton
+        state::showAccessContentButton partTo ::showProductContentButton
     }
 
     private fun renderLoading(isLoading: Boolean) {
@@ -116,6 +124,12 @@ class ProductDetailsActivity : BaseViewModelActivity() {
     private fun showLinkButton(showLinkButton : Boolean){
         btLinkProductToAccount.apply {
             isVisible = showLinkButton
+        }
+    }
+
+    private fun showProductContentButton(showProductContentButton : Boolean){
+        btAccessProductContent.apply {
+            isEnabled = showProductContentButton
         }
     }
 
